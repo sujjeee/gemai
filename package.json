@@ -1,12 +1,78 @@
 {
-  "name": "gemini",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+  "name": "gemai",
+  "version": "0.0.1",
+  "description": "AI Chatbot in a terminal environment.",
+  "publishConfig": {
+    "access": "public"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC"
+  "type": "module",
+  "types": "./dist/index.d.ts",
+  "exports": "./dist/index.js",
+  "main": "./dist/index.js",
+  "bin": {
+    "gemai": "./dist/index.js"
+  },
+  "preferGlobal": true,
+  "license": "MIT",
+  "author": {
+    "name": "sujjeee",
+    "url": "https://twitter.com/sujjeeee"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/sujjeee/gemai.git"
+  },
+  "files": ["dist"],
+  "keywords": [
+    "gemini",
+    "google gemini",
+    "ai",
+    "gemai",
+    "chatbot",
+    "cli",
+    "sujjeee"
+  ],
+  "scripts": {
+    "dev": "tsup --watch",
+    "build": "tsup",
+    "typecheck": "tsc --noEmit",
+    "clean": "rimraf dist",
+    "start": "node dist/index.js ",
+    "lint": "biome lint .",
+    "lint:fix": "biome lint --apply-unsafe .",
+    "format": "biome format .",
+    "format:fix": "biome format --write .",
+    "code-check": "biome check .",
+    "code-check:fix": "biome check --apply-unsafe .",
+    "biome:ci": "biome ci .",
+    "pub:release": "pnpm build && pnpm publish --access public"
+  },
+  "dependencies": {
+    "@langchain/google-genai": "^0.0.6",
+    "chalk": "^5.3.0",
+    "commander": "^11.1.0",
+    "configstore": "^6.0.0",
+    "fs-extra": "^11.2.0",
+    "langchain": "^0.0.213",
+    "nanoid": "^5.0.4",
+    "node-fetch": "^3.3.2",
+    "ora": "^7.0.1",
+    "package-json": "^8.1.1",
+    "prompts": "^2.4.2",
+    "qrcode": "^1.5.3",
+    "rimraf": "^5.0.5",
+    "zod": "^3.22.4"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "1.4.1",
+    "@types/configstore": "^6.0.2",
+    "@types/fs-extra": "^11.0.4",
+    "@types/node": "^20.10.4",
+    "@types/prompts": "^2.4.9",
+    "@types/qrcode": "^1.5.5",
+    "ts-node": "^10.9.2",
+    "tsup": "^8.0.1",
+    "type-fest": "^4.8.3",
+    "typescript": "^5.3.3"
+  }
 }
