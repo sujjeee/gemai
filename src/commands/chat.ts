@@ -14,13 +14,9 @@ const rl = readline.createInterface({
 
 export const chat = new Command()
   .name("chat")
-  .description("chat with ai ")
+  .description("chat with ai")
   .action(async () => {
-    const spinner = ora({
-      text: "thinking..",
-      spinner: "dots",
-      color: "white"
-    });
+    const spinner = ora("thinking..");
 
     logger.success("Hello! How I can help you?");
     logger.info("");
@@ -36,6 +32,10 @@ export const chat = new Command()
       ];
 
       switch (line.trim()) {
+        case "exit":
+          process.exit(0);
+          // TODO: remove break later
+          break;
         case "cls":
           console.clear();
           break;

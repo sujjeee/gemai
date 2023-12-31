@@ -22,7 +22,9 @@
     "type": "git",
     "url": "https://github.com/sujjeee/gemai.git"
   },
-  "files": ["dist"],
+  "files": [
+    "dist"
+  ],
   "keywords": [
     "gemini",
     "google gemini",
@@ -53,6 +55,7 @@
     "commander": "^11.1.0",
     "configstore": "^6.0.0",
     "fs-extra": "^11.2.0",
+    "json-colorizer": "^2.2.2",
     "langchain": "^0.0.213",
     "nanoid": "^5.0.4",
     "node-fetch": "^3.3.2",

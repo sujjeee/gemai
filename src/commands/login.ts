@@ -45,6 +45,7 @@ export const login = new Command()
         `${chalk.green("Success!")} Gemini authentication completed.`
       );
       logger.info("");
+      process.exit(0);
     } catch (error) {
       spinner.stop();
       handleError(error);
