@@ -10,8 +10,17 @@ export const config = new Command()
   .description("see your configured gemai credentails")
   .action(async () => {
     const spinner = ora("Getting config file...").start();
+
     const configInfo = await getConfig();
 
+    if (!configInfo) {
+      spinner.stop();
+      logger.error(
+        "Missing configuration. Please use your API key and try logging in again."
+      );
+      logger.info("");
+      process.exit(0);
+    }
     try {
       spinner.succeed("Configuration file successfully retrieved.");
 

@@ -6,20 +6,28 @@ import { Command } from "commander";
 import { HumanMessage, SystemMessage } from "langchain/schema";
 import ora from "ora";
 
-const rl = readline.createInterface({
-  input: process.stdin,
-  output: process.stdout,
-  prompt: "~ ",
-  terminal: false
-});
-
 export const chat = new Command()
   .name("chat")
   .description("chat with ai")
   .action(async () => {
-    await getConfig();
-    const spinner = ora("thinking..");
+    const configInfo = await getConfig();
 
+    if (!configInfo) {
+      logger.error(
+        "Missing configuration. Please use your API key and try logging in again."
+      );
+      logger.info("");
+      process.exit(0);
+    }
+
+    const rl = readline.createInterface({
+      input: process.stdin,
+      output: process.stdout,
+      prompt: "~ ",
+      terminal: false
+    });
+
+    const spinner = ora("thinking..");
     logger.success("Hello! How can I help you?");
     logger.info("");
 
@@ -45,16 +53,20 @@ export const chat = new Command()
           spinner.start();
           const stream = await model.stream(messages);
 
+          console.log("stream", stream);
           for await (const chunk of stream) {
             if (spinner.isSpinning) {
               spinner.stop();
             }
+            console.log("chunk", chunk);
             process.stdout.write(chunk.content as string);
           }
         }
       }
       rl.prompt();
-    }).on("close", () => {
+    });
+
+    rl.on("close", () => {
       process.exit(0);
     });
   });
