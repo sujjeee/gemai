@@ -22,7 +22,11 @@ export const login = new Command()
       await verify({ apiKey: options.token });
 
       const configInfo = {
-        apiKey: options.token
+        apiKey: options.token,
+        maxOutputTokens: 2048,
+        topK: 40,
+        topP: 1,
+        temperature: 0.7
       };
 
       const config = new Configstore("gemai");

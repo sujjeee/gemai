@@ -2,7 +2,12 @@ import Configstore from "configstore";
 
 interface GemAIConfig {
   apiKey: string;
+  maxOutputTokens: number;
+  topK: number;
+  topP: number;
+  temperature: number;
 }
+
 export async function getConfig() {
   const getConfig = new Configstore("gemai");
 
