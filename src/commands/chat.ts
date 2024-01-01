@@ -1,4 +1,5 @@
 import readline from "readline";
+import { getConfig } from "@/utils/get-config";
 import { logger } from "@/utils/logger";
 import { model } from "@/utils/model";
 import { Command } from "commander";
@@ -16,9 +17,10 @@ export const chat = new Command()
   .name("chat")
   .description("chat with ai")
   .action(async () => {
+    await getConfig();
     const spinner = ora("thinking..");
 
-    logger.success("Hello! How I can help you?");
+    logger.success("Hello! How can I help you?");
     logger.info("");
 
     rl.prompt();
@@ -26,7 +28,7 @@ export const chat = new Command()
     rl.on("line", async (line) => {
       const messages = [
         new SystemMessage(
-          "You are an AI assistant that responds to questions and commands just in very simple plain text format, without any markdown elements like **bold**, italic, ```code```, quote, or tables. When I ask you something, you have to respond directly, concisely, and precisely with only the relevant explanation or meaning, without any unnecessary commentary or introductory phrases and if additional information is required, include a resource link such as 'read more here ->'"
+          "You are an AI assistant that responds to questions and commands just in very simple plain text format, without any markdown elements like **bold**, italic, ```code```, quote, or tables. When I ask you something, you have to respond directly, concisely, and precisely with only the relevant explanation or meaning, without any unnecessary commentary or introductory phrases and if additional information is required, include a resource link such as 'Read more here ->'"
         ),
         new HumanMessage(line.trim())
       ];

@@ -10,10 +10,9 @@ export const config = new Command()
   .description("see your configured gemai credentails")
   .action(async () => {
     const spinner = ora("Getting config file...").start();
+    const configInfo = await getConfig();
 
     try {
-      const configInfo = await getConfig();
-
       spinner.succeed("Configuration file successfully retrieved.");
 
       logger.info("");

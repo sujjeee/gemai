@@ -1,3 +1,4 @@
+import { logger } from "@/utils/logger";
 import Configstore from "configstore";
 
 interface GemAIConfig {
@@ -7,7 +8,11 @@ export async function getConfig() {
   const getConfig = new Configstore("gemai");
 
   if (!getConfig.size) {
-    throw new Error("Missing configuration. Please try logging in again.");
+    logger.error(
+      "Missing configuration. Please use your API key and try logging in again."
+    );
+    logger.info("");
+    process.exit(0);
   }
 
   const config = (await getConfig.all) as GemAIConfig;
