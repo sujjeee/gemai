@@ -2,7 +2,7 @@
 Introducing GemAI, a command-line interface (CLI) AI ChatBot powered by Google's Gemini API. Engage in natural language conversations with ease and convenience.
 
 ## Quick Demo
-https://github.com/sujjeee/gemai/assets/101963203/f9947789-4859-4a18-9cda-9cfb121290ac
+https://github.com/sujjeee/gemai/assets/101963203/461c7675-33ad-4a91-a98a-ff8a2f29d8f6
 
 ## Installation:
 Installing GemAI is simple. For global access, execute one of the commands below:
