@@ -53,12 +53,10 @@ export const chat = new Command()
           spinner.start();
           const stream = await model.stream(messages);
 
-          console.log("stream", stream);
           for await (const chunk of stream) {
             if (spinner.isSpinning) {
               spinner.stop();
             }
-            console.log("chunk", chunk);
             process.stdout.write(chunk.content as string);
           }
         }
