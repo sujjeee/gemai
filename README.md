@@ -43,6 +43,23 @@ gemai config
 
 This will display the contents of the `gemai.json` file stored on your machine.
 
+### Updating Configuration:
+
+To update the default values of GemAI, run this command:
+
+```bash
+gemai config set
+```
+
+By default, when you log in, we have set some default values that are required for the Google Gemini API to work properly, such as:
+
+- `maxOutputTokens`: 2048
+- `topK`: 40
+- `topP`: 1
+- `temperature`: 0.7
+
+To update these default values, simply run `gemai config set`. After running this command, you will be prompted to enter your desired values in place of the default values.
+
 ### Engaging in a Chat:
 Ready to start chatting with the GemAI chatbot? Run the following command:
 
