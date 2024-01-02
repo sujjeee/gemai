@@ -16,8 +16,34 @@
         "recommended": true,
         "noUnusedImports": "warn",
         "useAwait": "warn"
+      },
+      "a11y": {
+        "noSvgWithoutTitle": "warn",
+        "useAltText": "warn",
+        "useButtonType": "warn",
+        "useKeyWithClickEvents": "warn"
+      },
+      "correctness": {
+        "useExhaustiveDependencies": "warn"
+      },
+      "performance": {
+        "noDelete": "warn"
+      },
+      "style": {
+        "all": false
+      },
+      "suspicious": {
+        "noArrayIndexKey": "warn",
+        "noAssignInExpressions": "warn",
+        "noEmptyInterface": "off",
+        "noExplicitAny": "warn"
       }
     }
+  },
+  "vcs": {
+    "clientKind": "git",
+    "enabled": true,
+    "useIgnoreFile": true
   },
   "formatter": {
     "indentWidth": 2,
