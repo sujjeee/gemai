@@ -18,6 +18,7 @@ pnpm install -g gemai
 ```
 
 ## Usage:
+
 ### Logging In:
 Before using GemAI, you'll need to log in with your Google Gemini API token. To do this, run the following command:
 
@@ -31,6 +32,8 @@ gemai login Flqw9TUeaSkRfRii3lmgZLid
 ```
 
 This command sends a request to the Gemini endpoint for authentication. Upon receiving a successful response, your API key will be verified. 
+
+To obtain your free API key, head over to [Google Gemini API Key](https://makersuite.google.com/app/apikey).
 
 If you encounter any issues, try running `gemai login <token>` again to refresh your credentials.
 
