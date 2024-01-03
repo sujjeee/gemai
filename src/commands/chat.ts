@@ -1,7 +1,7 @@
 import readline from "readline";
 import { getConfig } from "@/utils/get-config";
 import { logger } from "@/utils/logger";
-import { model } from "@/utils/model";
+import { chatModel } from "@/utils/models/chat-model";
 import { Command } from "commander";
 import { HumanMessage, SystemMessage } from "langchain/schema";
 import ora from "ora";
@@ -51,7 +51,7 @@ export const chat = new Command()
           break;
         default: {
           spinner.start();
-          const stream = await model.stream(messages);
+          const stream = await chatModel.stream(messages);
 
           for await (const chunk of stream) {
             if (spinner.isSpinning) {

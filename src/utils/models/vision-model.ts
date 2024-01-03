@@ -3,9 +3,9 @@ import { ChatGoogleGenerativeAI } from "@langchain/google-genai";
 
 const configInfo = await getConfig();
 
-export const model = new ChatGoogleGenerativeAI({
+export const visionModel = new ChatGoogleGenerativeAI({
+  modelName: "gemini-pro-vision",
   temperature: configInfo?.temperature ?? 0.7,
-  modelName: "gemini-pro",
   topK: configInfo?.topK ?? 40,
   topP: configInfo?.topP ?? 1,
   apiKey: configInfo?.apiKey ?? "<empty_string>",
