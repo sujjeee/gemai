@@ -72,5 +72,21 @@ gemai chat
 
 Once authenticated, you can dive right into a conversation with the chatbot.
 
+### Chat with image
+You can also chat with an image just run
+
+```bash
+gemai vision <image path>
+```
+
+When you provide the path to an image, it will be converted to `base64`. When you ask a question about the image, `GemAI` will send a request to the `Gemini Vision` endpoint with the image data and your question. The response from Gemini will be used to generate a reply.
+
+**Example:**
+```bash
+gemai vision public/image.jpg
+```
+
+You can ask questions like "What's happening in the image?", "Who are the people in the image?", or "What is the object on the left?".
+
 ## Credits:
 GemAI utilizes `Google's Gemini` API for its chatbot capabilities. To obtain your free API key, head over to [Google Gemini API Key](https://makersuite.google.com/app/apikey).
