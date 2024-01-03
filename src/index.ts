@@ -3,6 +3,7 @@
 import { chat } from "@/commands/chat";
 import { config } from "@/commands/config";
 import { login } from "@/commands/login";
+import { vision } from "@/commands/vision";
 import { getPackageInfo } from "@/utils/get-package-info";
 import { Command } from "commander";
 
@@ -21,7 +22,11 @@ async function main() {
       "display the version number"
     );
 
-  program.addCommand(login).addCommand(config).addCommand(chat);
+  program
+    .addCommand(login)
+    .addCommand(config)
+    .addCommand(chat)
+    .addCommand(vision);
   program.parse();
 }
 
