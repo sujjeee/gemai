@@ -4,9 +4,9 @@ import { getConfig } from "@/utils/get-config";
 import { handleError } from "@/utils/handle-error";
 import { logger } from "@/utils/logger";
 import { visionModel } from "@/utils/models/vision-model";
+import { HumanMessage, SystemMessage } from "@langchain/core/messages";
+import { StringOutputParser } from "@langchain/core/output_parsers";
 import { Command } from "commander";
-import { HumanMessage, SystemMessage } from "langchain/schema";
-import { StringOutputParser } from "langchain/schema/output_parser";
 import ora from "ora";
 
 export const vision = new Command()
@@ -98,7 +98,7 @@ export const vision = new Command()
         }
 
         // INFO: this is for resetting spinner text
-        spinner.text = "thinking";
+        spinner.text = "thinking..";
         rl.resume();
         rl.prompt();
       });
