@@ -1,9 +1,13 @@
 import readline from "readline";
+import { configInfo, getQAMessage } from "@/utils/constants";
+import { getConfig } from "@/utils/get-config";
 import { handleError } from "@/utils/handle-error";
 import { logger } from "@/utils/logger";
 import { chatModel } from "@/utils/models/chat-model";
 import { getMemoryVectorStore } from "@/utils/stores/get-memory-vector-store";
 import { getSavedVectorStore } from "@/utils/stores/get-saved-vector-store";
+import optionsSchema from "@/utils/validations";
+import { PromptTemplate } from "@langchain/core/prompts";
 import { Command, Option } from "commander";
 import { compile } from "html-to-text";
 import { RetrievalQAChain, loadQAStuffChain } from "langchain/chains";
@@ -13,9 +17,6 @@ import { PDFLoader } from "langchain/document_loaders/fs/pdf";
 import { TextLoader } from "langchain/document_loaders/fs/text";
 import { RecursiveUrlLoader } from "langchain/document_loaders/web/recursive_url";
 import ora from "ora";
-import optionsSchema from "@/utils/validations";
-import { configInfo } from "@/utils/constants";
-import { getConfig } from "@/utils/get-config";
 
 const rl = readline.createInterface({
   input: process.stdin,
@@ -117,7 +118,9 @@ export const read = new Command()
       rl.prompt();
 
       const chain = new RetrievalQAChain({
-        combineDocumentsChain: loadQAStuffChain(chatModel),
+        combineDocumentsChain: loadQAStuffChain(chatModel, {
+          prompt: PromptTemplate.fromTemplate(getQAMessage)
+        }),
         returnSourceDocuments: true,
         retriever: loadedVectorStore.asRetriever({
           k: configInfo.kwargs

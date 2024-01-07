@@ -3,10 +3,10 @@ import { getConfig } from "@/utils/get-config";
 import { handleError } from "@/utils/handle-error";
 import { logger } from "@/utils/logger";
 import { chatModel } from "@/utils/models/chat-model";
-import { HumanMessage, SystemMessage } from "@langchain/core/messages";
 import { StringOutputParser } from "@langchain/core/output_parsers";
 import { Command } from "commander";
 import ora from "ora";
+import { getChatMessage } from "@/utils/constants";
 
 export const chat = new Command()
   .name("chat")
@@ -37,13 +37,6 @@ export const chat = new Command()
       rl.prompt();
 
       rl.on("line", async (line) => {
-        const messages = [
-          new SystemMessage(
-            "You are an AI assistant that responds to questions and commands just in very simple plain text format, without any markdown elements like **bold**, italic, ```code```, quote, or tables. When I ask you something, you have to respond directly, concisely, and precisely with only the relevant explanation or meaning, without any unnecessary commentary or introductory phrases and if additional information is required, include a resource link such as 'Read more here ->'"
-          ),
-          new HumanMessage(line.trim())
-        ];
-
         switch (line.trim()) {
           case "exit":
             process.exit(0);
@@ -56,7 +49,9 @@ export const chat = new Command()
             rl.pause();
             spinner.start();
             const parser = new StringOutputParser();
-            const stream = await chatModel.pipe(parser).stream(messages);
+            const stream = await chatModel
+              .pipe(parser)
+              .stream(getChatMessage(line.trim()));
 
             for await (const chunk of stream) {
               if (spinner.isSpinning) {
