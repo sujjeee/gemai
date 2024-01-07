@@ -6,6 +6,7 @@ const optionsSchema = z.object({
     .min(3, { message: "path must be at least 3 characters long" }),
   type: z.enum(["pdf", "text", "json", "csv", "url"]).default("text"),
   save: z.boolean().default(false),
+  verbose: z.boolean().default(false),
   location: z
     .string()
     .min(3, { message: "location must be at least 3 characters long" })

@@ -39,6 +39,7 @@ export const read = new Command()
     ])
   )
   .option("-s, --save", "create new vector folder and save", false)
+  .option("-t, --verbose", "(test mode) enable verbose mode ", false)
   .option("-l, --location <type>", "location of the vector store", undefined)
   .option("-n, --name <type>", "save vector with a name", undefined)
   .action(async (path, opts) => {
@@ -129,7 +130,7 @@ export const read = new Command()
         retriever: loadedVectorStore.asRetriever({
           k: configInfo.kwargs
         }),
-        verbose: configInfo.verbose
+        verbose: options.verbose
       });
 
       rl.on("line", async (line) => {
