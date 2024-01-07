@@ -15,6 +15,7 @@ import { RecursiveUrlLoader } from "langchain/document_loaders/web/recursive_url
 import ora from "ora";
 import optionsSchema from "@/utils/validations";
 import { configInfo } from "@/utils/constants";
+import { getConfig } from "@/utils/get-config";
 
 const rl = readline.createInterface({
   input: process.stdin,
@@ -26,7 +27,7 @@ const rl = readline.createInterface({
 export const read = new Command()
   .name("read")
   .description("chat with document")
-  .argument("<path>", "path of the document")
+  .argument("<document path>", "path of the document")
   .addOption(
     new Option("-f, --file-type <type>", "select document file type").choices([
       "pdf",
@@ -40,6 +41,15 @@ export const read = new Command()
   .option("-l, --location <type>", "location of the vector store", undefined)
   .option("-n, --name <type>", "save vector with a name", undefined)
   .action(async (path, opts) => {
+    const config = await getConfig();
+
+    if (!config) {
+      logger.error(
+        "Missing configuration. Please use your API key and try logging in again."
+      );
+      logger.info("");
+      process.exit(0);
+    }
     try {
       let globalData = null;
 
