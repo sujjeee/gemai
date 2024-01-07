@@ -6,6 +6,7 @@ import { Command } from "commander";
 import Configstore from "configstore";
 import ora from "ora";
 import { z } from "zod";
+import { configInfo } from "@/utils/constants";
 
 const loginOptionsSchema = z.object({
   token: z.string().min(8, "Token must be at least 8 characters long")
@@ -21,12 +22,9 @@ export const login = new Command()
       const options = loginOptionsSchema.parse({ token });
       await verify({ apiKey: options.token });
 
-      const configInfo = {
+      const defaultSettings = {
         apiKey: options.token,
-        maxOutputTokens: 2048,
-        topK: 40,
-        topP: 1,
-        temperature: 0.7
+    ...configInfo
       };
 
       const config = new Configstore("gemai/config");
@@ -40,7 +38,7 @@ export const login = new Command()
       config.clear();
 
       // 2: set new gemai credentials
-      config.set(configInfo);
+      config.set(defaultSettings);
 
       spinner.succeed("Done");
 

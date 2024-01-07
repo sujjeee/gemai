@@ -14,6 +14,7 @@ import { TextLoader } from "langchain/document_loaders/fs/text";
 import { RecursiveUrlLoader } from "langchain/document_loaders/web/recursive_url";
 import ora from "ora";
 import optionsSchema from "@/utils/validations";
+import { configInfo } from "@/utils/constants";
 
 const rl = readline.createInterface({
   input: process.stdin,
@@ -109,9 +110,9 @@ export const read = new Command()
         combineDocumentsChain: loadQAStuffChain(chatModel),
         returnSourceDocuments: true,
         retriever: loadedVectorStore.asRetriever({
-          k: 1
-        })
-        // verbose: true
+          k: configInfo.kwargs
+        }),
+        verbose: configInfo.verbose
       });
 
       rl.on("line", async (line) => {
