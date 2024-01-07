@@ -54,7 +54,11 @@ export const read = new Command()
     try {
       let globalData = null;
 
-      const options = optionsSchema.parse({ path, ...opts });
+      const options = optionsSchema.parse({
+        path,
+        type: opts.fileType,
+        ...opts
+      });
 
       switch (options.type) {
         case "pdf": {
