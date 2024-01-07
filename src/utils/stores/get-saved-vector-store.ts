@@ -2,11 +2,11 @@ import { promises as fsPromises } from "fs";
 import { dirname, join } from "path";
 import { getNanoid } from "@/utils/get-nanoid";
 import { embeddingModel } from "@/utils/models/embedding-model";
+import optionsSchema from "@/utils/validations";
 import { FaissStore } from "@langchain/community/vectorstores/faiss";
 import type { Document } from "@langchain/core/documents";
 import Configstore from "configstore";
 import { RecursiveCharacterTextSplitter } from "langchain/text_splitter";
-import optionsSchema from "@/utils/validations";
 import * as z from "zod";
 
 const options = optionsSchema.pick({

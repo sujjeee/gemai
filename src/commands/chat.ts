@@ -1,4 +1,5 @@
 import readline from "readline";
+import { getChatMessage } from "@/utils/constants";
 import { getConfig } from "@/utils/get-config";
 import { handleError } from "@/utils/handle-error";
 import { logger } from "@/utils/logger";
@@ -6,7 +7,6 @@ import { chatModel } from "@/utils/models/chat-model";
 import { StringOutputParser } from "@langchain/core/output_parsers";
 import { Command } from "commander";
 import ora from "ora";
-import { getChatMessage } from "@/utils/constants";
 
 export const chat = new Command()
   .name("chat")

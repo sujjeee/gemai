@@ -1,3 +1,4 @@
+import { configInfo } from "@/utils/constants";
 import { handleError } from "@/utils/handle-error";
 import { logger } from "@/utils/logger";
 import { verify } from "@/utils/verify";
@@ -6,7 +7,6 @@ import { Command } from "commander";
 import Configstore from "configstore";
 import ora from "ora";
 import { z } from "zod";
-import { configInfo } from "@/utils/constants";
 
 const loginOptionsSchema = z.object({
   token: z.string().min(8, "Token must be at least 8 characters long")
