@@ -9,7 +9,7 @@ interface GemAIConfig {
 }
 
 export async function getConfig() {
-  const getConfig = new Configstore("gemai");
+  const getConfig = new Configstore("gemai/config");
 
   if (!getConfig.size) {
     return null;
