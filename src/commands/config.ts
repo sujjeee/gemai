@@ -91,6 +91,21 @@ config
             initial: 0.7,
             validate: (value) =>
               value <= 1 || "temperature must be smaller than 1"
+          },
+          {
+            type: "toggle",
+            name: "verbose",
+            message: "verbose?",
+            initial: false,
+            active: "true",
+            inactive: "false"
+          },
+          {
+            type: "text",
+            name: "kwargs",
+            message: "kwargs?",
+            initial: 10,
+            validate: (value) => value <= 10 || "kwargs must be smaller than 10"
           }
         ],
         {
