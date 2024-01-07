@@ -29,7 +29,7 @@ export const login = new Command()
         temperature: 0.7
       };
 
-      const config = new Configstore("gemai");
+      const config = new Configstore("gemai/config");
 
       if (!config.path) {
         spinner.stop();

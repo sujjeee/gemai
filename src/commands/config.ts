@@ -103,7 +103,7 @@ config
         }
       );
 
-      const getconfig = new Configstore("gemai");
+      const getconfig = new Configstore("gemai/config");
 
       getconfig.set("maxOutputTokens", options.maxOutputTokens);
       getconfig.set("topK", options.topK);
