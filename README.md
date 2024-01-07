@@ -1,5 +1,5 @@
 # GemAI - Free ChatBot CLI 🤖
-Introducing GemAI, a command-line interface (CLI) AI ChatBot powered by Google's Gemini API. Engage in natural language conversations with ease and convenience.
+`GemAI` is a command-line interface (CLI) `AI ChatBot` that uses `Google’s Gemini` API to generate natural language responses. You can chat with GemAI about anything, from images to documents, and have fun and engaging conversations.
 
 ## Quick Demo
 https://github.com/sujjeee/gemai/assets/101963203/461c7675-33ad-4a91-a98a-ff8a2f29d8f6
@@ -60,20 +60,21 @@ By default, when you log in, we have set some default values that are required f
 - `topK`: 40
 - `topP`: 1
 - `temperature`: 0.7
+- `kwargs`: 1
 
 To update these default values, simply run `gemai config set`. After running this command, you will be prompted to enter your desired values in place of the default values.
 
-### Engaging in a Chat:
-Ready to start chatting with the GemAI chatbot? Run the following command:
+### Chat with GemAI:
+To start chatting with the GemAI chatbot, run this command:
 
 ```bash
 gemai chat
 ```
 
-Once authenticated, you can dive right into a conversation with the chatbot.
+Once you are logged in, you can have a natural language conversation with the chatbot.
 
 ### Chat with image
-You can also chat with an image just run
+You can also chat with an image by running:
 
 ```bash
 gemai vision <image path>
@@ -87,6 +88,50 @@ gemai vision public/image.jpg
 ```
 
 You can ask questions like "What's happening in the image?", "Who are the people in the image?", or "What is the object on the left?".
+
+### Chat with Document
+You can also chat with a document by running:
+
+```bash
+gemai read <document path>
+```
+
+You need to provide the `path` of your document, and optionally specify its `file type` using the `-f` flag. Default `file type` is set to `text` because it allows for easier splitting and chunking of content.
+
+However, we generally `recommend` using the `text` file type for seamless conversations with any document.
+
+**Example:**
+
+```bash
+gemai read <document path> -f pdf
+```
+GemAI supports five file types: `pdf`, `text`, `json`, `csv`, and `url`. 
+
+**Note:** The `url` file type is included for convenience, allowing you to fetch data from websites that allow bots to scrape their web pages.
+
+GemAI also provides `verbose` output, displaying the retrieval process of chunks based on your queries.
+
+**Example:**
+```bash
+gemai read resume.pdf -f pdf -t
+```
+**Fun Fact:** We can't use `-v` for `verbose` flag as it is already assigned as version flag.
+
+By default, GemAI use `MemoryVectorStore` to manage splitted chunks and indexes. 
+
+If you want to save the chunks and indexes to your local machine, you can use the `-s` flag. This will create a directory with a nanoid in `/user/.config/configstore/gemai`. You can also use the `-n` flag to give a `custom name` to the directory.
+
+**Example:**
+```bash
+gemai read resume.pdf -f pdf -s -n resume-store
+```
+
+If you have already created and saved a `vector store` on your machine, you can load it by using the `-l` flag. This flag requires the location/path of the vector store directory.
+
+**Example:**
+```bash
+gemai read resume.pdf -f pdf -l C:\Users\asus\.config\configstore\gemai\resume-store
+```
 
 ## Credits:
 GemAI utilizes `Google's Gemini` API for its chatbot capabilities. To obtain your free API key, head over to [Google Gemini API Key](https://makersuite.google.com/app/apikey).
