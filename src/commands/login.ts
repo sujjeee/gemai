@@ -24,7 +24,7 @@ export const login = new Command()
 
       const defaultSettings = {
         apiKey: options.token,
-    ...configInfo
+        ...configInfo
       };
 
       const config = new Configstore("gemai/config");

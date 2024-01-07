@@ -9,8 +9,8 @@ import { RecursiveCharacterTextSplitter } from "langchain/text_splitter";
 import optionsSchema from "@/utils/validations";
 import * as z from "zod";
 
-const options =optionsSchema.pick({
-  location:true,
+const options = optionsSchema.pick({
+  location: true,
   name: true,
   save: true
 });
@@ -24,7 +24,7 @@ export async function getSavedVectorStore<
   const config = new Configstore("gemai/config");
   const folder = dirname(config.path);
   const store = join(folder, options.name ?? getNanoid());
-  
+
   const splitter = new RecursiveCharacterTextSplitter({
     chunkSize: 1000,
     chunkOverlap: 200
