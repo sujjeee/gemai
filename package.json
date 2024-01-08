@@ -1,6 +1,6 @@
 {
   "name": "gemai",
-  "version": "0.0.9",
+  "version": "0.0.10",
   "description": "AI Chatbot in a terminal environment.",
   "publishConfig": {
     "access": "public"
