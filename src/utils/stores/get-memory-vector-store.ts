@@ -7,18 +7,22 @@ export async function getMemoryVectorStore<
   // biome-ignore lint: accept any here
   T extends Document<Record<string, any>>
 >(globalData: T[]) {
-  const splitter = new RecursiveCharacterTextSplitter({
-    separators: ["\n\n", "\n", " "],
-    chunkSize: 1000,
-    chunkOverlap: 200
-  });
+  try {
+    const splitter = new RecursiveCharacterTextSplitter({
+      separators: ["\n\n", "\n", " "],
+      chunkSize: 1000,
+      chunkOverlap: 200
+    });
 
-  const dataOutput = await splitter.splitDocuments(globalData);
+    const dataOutput = await splitter.splitDocuments(globalData);
 
-  const memoryStore = await MemoryVectorStore.fromDocuments(
-    dataOutput,
-    embeddingModel
-  );
+    const memoryStore = await MemoryVectorStore.fromDocuments(
+      dataOutput,
+      embeddingModel
+    );
 
-  return memoryStore;
+    return memoryStore;
+  } catch (error) {
+    throw new Error(`${error}`);
+  }
 }

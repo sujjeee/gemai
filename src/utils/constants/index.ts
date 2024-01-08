@@ -5,7 +5,8 @@ export const configInfo = {
   topK: 40,
   topP: 1,
   temperature: 0.7,
-  kwargs: 1
+  kwargs: 1,
+  maxDepth: 0
 };
 
 // Improve the prompt with more details according to your needs

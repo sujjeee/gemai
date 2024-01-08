@@ -43,24 +43,31 @@ export const read = new Command()
   .option("-l, --location <type>", "location of the vector store", undefined)
   .option("-n, --name <type>", "save vector with a name", undefined)
   .action(async (path, opts) => {
+    const loader = ora("starting..").start();
+    const spinner = ora("thinking..");
+
     const config = await getConfig();
 
     if (!config) {
+      loader.stop();
       logger.error(
         "Missing configuration. Please use your API key and try logging in again."
       );
       logger.info("");
       process.exit(0);
     }
+
     try {
       let globalData = null;
 
+      loader.text = "parsing..";
       const options = optionsSchema.parse({
         path,
         type: opts.fileType,
         ...opts
       });
 
+      loader.text = "loading documents..";
       switch (options.type) {
         case "pdf": {
           const pdfLoader = new PDFLoader(path);
@@ -93,11 +100,15 @@ export const read = new Command()
           break;
         }
         default:
-          console.error("Invalid file type.");
+          if (!config) {
+            logger.error("Invalid file type.");
+            logger.info("");
+          }
           break;
       }
 
       if (!globalData) {
+        loader.stop();
         logger.error(
           logger.error(
             "No data was loaded. Please check the input file path and try running the command again."
@@ -107,6 +118,7 @@ export const read = new Command()
         process.exit(0);
       }
 
+      loader.text = "creating vector store..";
       const loadedVectorStore =
         options.save || options.location
           ? await getSavedVectorStore(globalData, {
@@ -116,7 +128,8 @@ export const read = new Command()
             })
           : await getMemoryVectorStore(globalData);
 
-      const spinner = ora("thinking..");
+      loader.stop();
+
       logger.success("Hello! How can I help you?");
       logger.info("");
 
@@ -173,6 +186,8 @@ export const read = new Command()
         process.exit(0);
       });
     } catch (error) {
+      loader.stop();
+      spinner.stop();
       handleError(error);
     }
   });

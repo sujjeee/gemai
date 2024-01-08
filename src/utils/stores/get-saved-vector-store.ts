@@ -21,44 +21,45 @@ export async function getSavedVectorStore<
   // biome-ignore lint: accept any here
   T extends Document<Record<string, any>>
 >(globalData: T[], options: agrs): Promise<FaissStore> {
-  const config = new Configstore("gemai/config");
-  const folder = dirname(config.path);
-  const store = join(folder, options.name ?? getNanoid());
+  try {
+    const config = new Configstore("gemai/config");
+    const folder = dirname(config.path);
+    const store = join(folder, options.name ?? getNanoid());
 
-  const splitter = new RecursiveCharacterTextSplitter({
-    chunkSize: 1000,
-    chunkOverlap: 200
-  });
+    const splitter = new RecursiveCharacterTextSplitter({
+      chunkSize: 1000,
+      chunkOverlap: 200
+    });
 
-  if (options.save) {
-    try {
-      await fsPromises.rm(store, { recursive: true, force: true });
-      await fsPromises.mkdir(store);
-    } catch (err) {
-      console.error(
-        "Error occurred while removing or creating directory:",
-        err
+    if (options.save) {
+      try {
+        await fsPromises.rm(store, { recursive: true, force: true });
+        await fsPromises.mkdir(store);
+      } catch (err) {
+        throw new Error(`${err}`);
+      }
+
+      const dataOutput = await splitter.splitDocuments(globalData);
+
+      const vectorStore = await FaissStore.fromDocuments(
+        dataOutput,
+        embeddingModel
       );
-      throw err; // Throw the error for handling or logging
+
+      try {
+        await vectorStore.save(store);
+      } catch (err) {
+        throw new Error(`${err}`);
+      }
     }
 
-    const dataOutput = await splitter.splitDocuments(globalData);
-
-    const vectorStore = await FaissStore.fromDocuments(
-      dataOutput,
+    const loadedVectorStore = await FaissStore.load(
+      options.location ? options.location : store,
       embeddingModel
     );
 
-    try {
-      await vectorStore.save(store);
-    } catch (err) {
-      console.error("Error occurred while saving vector store:", err);
-      throw err; // Throw the error for handling or logging
-    }
+    return loadedVectorStore;
+  } catch (error) {
+    throw new Error(`${error}`);
   }
-  const loadedVectorStore = await FaissStore.load(
-    options.location ? options.location : store,
-    embeddingModel
-  );
-  return loadedVectorStore;
 }
